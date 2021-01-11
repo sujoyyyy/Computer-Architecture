@@ -52,7 +52,7 @@ module top;
             begin
                 i = i+1;
             end 
-            E3 = E3 - i;
+            E3 = E1 - i;
             tmp = Sum[22:0];
             M3 = tmp<<i;
         end
