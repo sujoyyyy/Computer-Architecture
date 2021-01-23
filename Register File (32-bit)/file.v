@@ -1,5 +1,5 @@
 `include "decoder.v"
-module RegisterFile_16Bit_32Size_WithoutDFFs (mode, 
+module RegisterFile_32Bit_32Size (mode, 
 WriteAddress, WriteValue, 
 ReadAddress1,
 ReadValue1
