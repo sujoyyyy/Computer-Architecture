@@ -1,8 +1,8 @@
 `include "decoder.v"
 module RegisterFile_16Bit_32Size_WithoutDFFs (mode, 
 WriteAddress, WriteValue, 
-ReadAddress1, ReadAddress2, 
-ReadValue1, ReadValue2
+ReadAddress1,
+ReadValue1
 );
 
 input mode; // mode = 0 - Read Mode | mode = 1 - Write Mode
@@ -13,8 +13,8 @@ wire [32:1] outRegisterFile [32:1];
 input [5:1] WriteAddress;
 input [32:1] WriteValue;
 
-input [5:1] ReadAddress1, ReadAddress2;
-output [32:1] ReadValue1, ReadValue2;
+input [5:1] ReadAddress1;
+output [32:1] ReadValue1;
 
 // Write
 wire [32:1] WriteAddressDecoded;
@@ -85,7 +85,7 @@ assign RegisterFile[30] = mode ? (outRegisterFile[30]) : (RegisterFile[30]);
 assign RegisterFile[31] = mode ? (outRegisterFile[31]) : (RegisterFile[31]);
 assign RegisterFile[32] = mode ? (outRegisterFile[32]) : (RegisterFile[32]);
 
-// Read 1
+// Read 
 wire [32:1] ReadAddressDecoded1;
 wire [32:1] ReadValueTemp1;
 Decoder_5Bit readdecoder1 (ReadAddress1, ReadAddressDecoded1);
@@ -123,47 +123,7 @@ assign ReadValueTemp1 =  (ReadAddressDecoded1[1] ? (RegisterFile[1]) :
                     (ReadAddressDecoded1[32] ? (RegisterFile[32]) : (32'b00000000000000000000000000000000)
                     ))))))))))))))))))))))))))))))));
 
-// Read 2
-wire [32:1] ReadAddressDecoded2;
-wire [32:1] ReadValueTemp2;
-Decoder_5Bit readdecoder2 (ReadAddress2, ReadAddressDecoded2);
-assign ReadValueTemp2 =  (ReadAddressDecoded2[1] ? (RegisterFile[1]) :
-                    (ReadAddressDecoded2[2] ? (RegisterFile[2]) :
-                    (ReadAddressDecoded2[3] ? (RegisterFile[3]) :
-                    (ReadAddressDecoded2[4] ? (RegisterFile[4]) :
-                    (ReadAddressDecoded2[5] ? (RegisterFile[5]) :
-                    (ReadAddressDecoded2[6] ? (RegisterFile[6]) :
-                    (ReadAddressDecoded2[7] ? (RegisterFile[7]) :
-                    (ReadAddressDecoded2[8] ? (RegisterFile[8]) :
-                    (ReadAddressDecoded2[9] ? (RegisterFile[9]) :
-                    (ReadAddressDecoded2[10] ? (RegisterFile[10]) :
-                    (ReadAddressDecoded2[11] ? (RegisterFile[11]) :
-                    (ReadAddressDecoded2[12] ? (RegisterFile[12]) :
-                    (ReadAddressDecoded2[13] ? (RegisterFile[13]) :
-                    (ReadAddressDecoded2[14] ? (RegisterFile[14]) :
-                    (ReadAddressDecoded2[15] ? (RegisterFile[15]) :
-                    (ReadAddressDecoded2[16] ? (RegisterFile[16]) :
-                    (ReadAddressDecoded2[17] ? (RegisterFile[17]) :
-                    (ReadAddressDecoded2[18] ? (RegisterFile[18]) :
-                    (ReadAddressDecoded2[19] ? (RegisterFile[19]) :
-                    (ReadAddressDecoded2[20] ? (RegisterFile[20]) :
-                    (ReadAddressDecoded2[21] ? (RegisterFile[21]) :
-                    (ReadAddressDecoded2[22] ? (RegisterFile[22]) :
-                    (ReadAddressDecoded2[23] ? (RegisterFile[23]) :
-                    (ReadAddressDecoded2[24] ? (RegisterFile[24]) :
-                    (ReadAddressDecoded2[25] ? (RegisterFile[25]) :
-                    (ReadAddressDecoded2[26] ? (RegisterFile[26]) :
-                    (ReadAddressDecoded2[27] ? (RegisterFile[27]) :
-                    (ReadAddressDecoded2[28] ? (RegisterFile[28]) :
-                    (ReadAddressDecoded2[29] ? (RegisterFile[29]) :
-                    (ReadAddressDecoded2[30] ? (RegisterFile[30]) :
-                    (ReadAddressDecoded2[31] ? (RegisterFile[31]) :
-                    (ReadAddressDecoded2[32] ? (RegisterFile[32]) : (32'b00000000000000000000000000000000)
-                    ))))))))))))))))))))))))))))))));
-
-
 
 assign ReadValue1 = mode ? ReadValue1 : (ReadValueTemp1);
-assign ReadValue2 = mode ? ReadValue2 : (ReadValueTemp2);
 
 endmodule
