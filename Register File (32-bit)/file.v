@@ -26,7 +26,7 @@ module registerFile_tb();
 		clk = 0;
 		wrEnable = 1;
 		for (index = 0; index < 10; index = index + 1) begin #10 wrReg = index; wrData = index * 2; $display ("Write Address:%d Write Data:%d", wrReg, wrData); end
-        $display("\n\n\n");
+        $display("\n\nReading data\n");
 		#10 rdReg1 = 0; rdReg2 = 1; #2 $display ("Read Address1:%d ReadData1:%d \tRead Address2:%d ReadData2:%d", rdReg1, rdData1, rdReg2, rdData2);
 		#10 rdReg1 = 2; rdReg2 = 3; #2 $display ("Read Address1:%d ReadData1:%d \tRead Address2:%d ReadData2:%d", rdReg1, rdData1, rdReg2, rdData2);
 		#10 rdReg1 = 4; rdReg2 = 5; #2 $display ("Read Address1:%d ReadData1:%d \tRead Address2:%d ReadData2:%d", rdReg1, rdData1, rdReg2, rdData2);
