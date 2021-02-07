@@ -1,0 +1,12 @@
+
+				BLOCKS	WORDS	WORD SIZE	INDEX
+MAIN MEMORY 	8192	16		32			13 (Block index (BI))
+CACHE MEMORY	1024	16		32			10 (Cache index (CI))
+
+TAG = Block index - Cache index = 3 bits
+BLOCK OFFSET (BO) = bits for no. of blocks (16) = 4 bits
+VALID (V): 1 bit
+DIRTY (D): 1 bit
+
+PHYSICAL ADDRESS: { BI(13) BO(4) } = 17 bits
+LOGICAL ADDRESS : { V(1) D(1) TAG(3) CI(10) BO(4) } = 19 bits
