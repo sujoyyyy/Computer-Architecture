@@ -9,6 +9,7 @@ module dcache (
 );
 	reg [31:0] mm [8191:0][15:0];
 	reg [31:0] cache [1023:0][15:0];
+	//Logical Address
 	reg [2:0] tags [1023:0];
 	reg val [1023:0];	
 	reg dirty [1023:0];
@@ -26,7 +27,6 @@ module dcache (
 	assign read_tag = raddr[16:14];
 	assign read_line = raddr[13:4];
 	assign read_offset = raddr[3:0];
-
 	assign write_tag = waddr[16:14];
 	assign write_line = waddr[13:4];
 	assign write_offset = waddr[3:0];
