@@ -11,19 +11,18 @@ module dcache (
 	reg [31:0] cache [1023:0][15:0];
 	reg [2:0] tags [1023:0];
 	reg val [1023:0];	
-	reg dirty [1023:0];	
-
-	//Reading Information
-	wire [2:0] read_tag;
-	wire [9:0] read_line; 
-	wire [3:0] read_offset;
+	reg dirty [1023:0];
 
 	//Writing Information
 	wire [2:0] write_tag;
 	wire [9:0] write_line; 
 	wire [3:0] write_offset;
+	
+	//Reading Information
+	wire [2:0] read_tag;
+	wire [9:0] read_line; 
+	wire [3:0] read_offset;
 
-	integer i, j;
 	assign read_tag = raddr[16:14];
 	assign read_line = raddr[13:4];
 	assign read_offset = raddr[3:0];
@@ -32,13 +31,14 @@ module dcache (
 	assign write_line = waddr[13:4];
 	assign write_offset = waddr[3:0];
 
+	integer i, j;
 	initial 
 	begin
 		for (i = 0; i < 8192; i = i + 1) 
 		begin
 			for (j = 0; j < 16; j = j + 1) 
 			begin
-				mm[i][j] = 0;
+				mm[i][j] = 0; //initialising the main memory
 			end
 		end
 		
