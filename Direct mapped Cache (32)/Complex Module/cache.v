@@ -1,35 +1,10 @@
-module dcache (
-	input [16:0] raddr,
-	input [16:0] waddr,
-	input [31:0] wdata,
-	input ren,
-	input wen,
-	input clk,
-	output reg [31:0] rdata
-);
+module dcache (input [16:0] raddr, input [16:0] waddr, input [31:0] wdata, input ren, input wen, input clk, output reg [31:0] rdata);
 	reg [31:0] mm [8191:0][15:0];
 	reg [31:0] cache [1023:0][15:0];
 	//Logical Address
 	reg [2:0] tags [1023:0];
 	reg val [1023:0];	
 	reg dirty [1023:0];
-
-	//Writing Information
-	wire [2:0] write_tag;
-	wire [9:0] write_line; 
-	wire [3:0] write_offset;
-	
-	//Reading Information
-	wire [2:0] read_tag;
-	wire [9:0] read_line; 
-	wire [3:0] read_offset;
-
-	assign read_tag = raddr[16:14];
-	assign read_line = raddr[13:4];
-	assign read_offset = raddr[3:0];
-	assign write_tag = waddr[16:14];
-	assign write_line = waddr[13:4];
-	assign write_offset = waddr[3:0];
 
 	integer i, j;
 	initial 
@@ -49,6 +24,23 @@ module dcache (
 			dirty[i] = 0;
 		end
 	end
+
+
+	wire [2:0] write_tag;
+	wire [9:0] write_line; 
+	wire [3:0] write_offset;
+
+	wire [2:0] read_tag;
+	wire [9:0] read_line; 
+	wire [3:0] read_offset;
+
+	assign read_tag = raddr[16:14];
+	assign read_line = raddr[13:4];
+	assign read_offset = raddr[3:0];
+	assign write_tag = waddr[16:14];
+	assign write_line = waddr[13:4];
+	assign write_offset = waddr[3:0];
+
 	
 	always @(posedge clk) 
 	begin
