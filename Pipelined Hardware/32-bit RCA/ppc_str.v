@@ -1,5 +1,4 @@
 `include "levels.v"
-
 module dff_lvl (input [31:0][7:0]d,input rst,input clk,output reg [31:0][7:0] q,output reg[31:0] wr1,output reg[31:0] wr2,input [31:0]a,input [31:0]b);  
     always@(posedge clk )  
        if (!rst)  
@@ -19,15 +18,14 @@ endmodule
 module ppc(y,x,rst,clk,a,b,c,d);
 input [31:0][7:0]x;
 input [31:0] a,b;
+output  [31:0][7:0] y ;
+output [31:0] c,d;
+input rst,clk;
 
 wire [31:0][7:0]reg1,reg2,reg3,reg4,reg5;
 wire[31:0] wr6,wr7,wr8,wr9,wr10,wr11,wr12,wr13,wr14,wr15;
-
-output  [31:0][7:0] y ;
-output [31:0] c,d;
 wire [31:0][7:0] wr1,wr2,wr3,wr4,wr5 ;
 
-input rst,clk;
 
 dff_lvl c1(x,rst,clk,reg1,wr6,wr7,a,b); //pipeline-2
 lvl m1(wr1,reg1,3'd0);

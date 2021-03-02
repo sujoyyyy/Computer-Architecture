@@ -5,10 +5,10 @@
 module adder(si,xout,a,b,xin,clk,rst);
 input clk,rst;
 input [31:0] a,b;
-input[7:0] xin;
+input [7:0] xin;
 output [32:0][7:0]x;
 output [7:0]xout;
-output [31:0][7:0] y ;
+output [31:0][7:0] y;
 output reg[31:0] si;
 
 input [31:0] c,d,e,f;
@@ -48,9 +48,10 @@ adder ad_0(si,xout,ai,bi,xin,clk,rst);
 integer i;
 initial
 begin
-#0 xin="k"; ai=-36; bi=36;
-#7 xin="k"; ai=352; bi=18;
-#7 xin="k"; ai=4; bi=67;
+#0 
+xin="k"; ai=-36; bi=36;
+xin="k"; ai=352; bi=18;
+xin="k"; ai=4; bi=67;
 end
 
 initial
