@@ -56,12 +56,10 @@ module top;
             Final_exp={1'b0,8'b11111111,23'b0};
         else if(&E2 == 1'b1 && |M2 == 1'b0)     //INFINITY
             Final_exp={1'b0,8'b11111111,23'b0};
-
         else if(|E1 == 1'b0 && |M1 == 1'b0)     //ZERO
             Final_exp={32'b0};
         else if(|E2 == 1'b0 && |M2 == 1'b0)     //ZERO
             Final_exp={32'b0};
-       
         else                                    //NORMAL CASE
             Final_exp={S3,E3,M3};
     end
