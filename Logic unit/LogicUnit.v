@@ -14,7 +14,7 @@ module LogicUnit(input [2:0] operation,
     assign Out = (operation[2] & ~operation[1] & operation[0])?~(A|B):32'bz;      //101 NOR
     assign Out = &operation[2:1] & ~operation[0]?cmp:32'bz;                       //110 2s COMPLEMENT
     assign Out = (&operation[2:0])? ~(A ^ B):32'bz;                               //111 XNOR
-    
+
 endmodule
 
 module twocmp(input [31:0]A,output [31:0]B);

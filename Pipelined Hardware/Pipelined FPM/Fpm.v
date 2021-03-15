@@ -39,7 +39,6 @@ getval m0(a1,b1,w_MAN_a[32:1],w_MAN_b[32:1],exp_a,exp_b,sign_a,sign_b);
 
 //Pipeline 2
 dff_lvl_p2 p2(a1,b1,w_MAN_a,w_MAN_b,exp_a,exp_b,sign_a,sign_b,rst,clk,a2,b2,w_MAN_a2,w_MAN_b2,exp_a2,exp_b2,sign_a2,sign_b2);
-
 always@(posedge clk)
 begin
     sign_c=sign_a2^sign_b2;
@@ -47,7 +46,7 @@ begin
 end
 //module multiplies mantissa of a and b
 wallace m1(w_MAN_c,w_MAN_a2,w_MAN_b2,a2,b2,r_EXP_c,sign_c,clk,rst ,a3,b3,w_EXP_c3,sign_c3 );                                              
-mux22 m2(w_MAN_c[48],w_EXP_c3,w_EXP_cs);           //increment exp if 48th bit is set to 1 so we add 1 to exp 
+mux22 m2(w_MAN_c[48],w_EXP_c3,w_EXP_cs);            //increment exp if 48th bit is set to 1 so we add 1 to exp 
 mux21 m3(w_EXP_cs,a3,b3,w_EXP_cs2);                 //if exponent is greater than 255 or 255 ,exp will be set to 255 i.e set all exp to 8b1
 mux23 m4(w_MAN_c,a3,b3,w_MAN_cs);                   //to handle special cases like nan or infinity (mantissa)
 mux24 m5(w_MAN_c[48],w_MAN_cs,w_EXP_cs2,a3,b3,c);   //to handle a special case where either of the input is zero
@@ -68,9 +67,11 @@ fpm f1(Exp1,Exp2,clk,rst,c);
 
 initial
 begin
-    #0  Exp1={9'b010000000,{23{1'b0}}}; Exp2={9'b010000001,{23{1'b0}}};                         //2*4 = 8
+    #0 Exp1=32'b0; Exp2=32'b0;
+    #10 Exp1={9'b010000000,{23{1'b0}}}; Exp2={9'b010000001,{23{1'b0}}};                         //2*4 = 8
     #10 Exp1=32'b01000010111110100100000000000000; Exp2=32'b01000001010000010000000000000000;   //125.125*12.0625=1509.3203125
     #10 Exp1=32'b01111111100000000000000000000000; Exp2=32'b01110011100000000000000000000000;   //INFINTIY
+    #10 Exp1=32'b01111111100000000000000000000111; Exp2={9'b010000001,{23{1'b0}}};              //NaN*anything=NaN
 end
 
 initial
@@ -78,7 +79,7 @@ begin
     clk=1;
     rst=0;
     rst=1;
-    for (i=0;i<130;i++)
+    for (i=0;i<160;i++)
         #1 clk=~clk;
 end
 

@@ -14,7 +14,6 @@ module fpa(
 
 
 // intermediate variables to store the mantissas of a and b.
-
 output wire [32:1] w_MAN_a,w_MAN_a1,w_MAN_a2,w_MAN_a3,w_MAN_a4;      //to store mantissa value of a
 output wire [32:1] w_MAN_b,w_MAN_b1,w_MAN_b2,w_MAN_b3,w_MAN_b4;      //to store mantissa value of b
 
@@ -42,7 +41,6 @@ dff_lvl_1 p1(a,b,rst,clk,ai,bi);
 getval m0(ai,bi,w_MAN_a1,w_MAN_b1,exp_a1,exp_b1,sign_a1,sign_b1);          
 
 
-
 // Pipeline 2
 //2 - module gets difference between exp of a and b
 dff_lvl_2 p2(w_MAN_a1,w_MAN_b1,exp_a1,exp_b1,sign_a1,sign_b1,rst,clk,w_MAN_a2,w_MAN_b2,exp_a2,exp_b2,sign_a2,sign_b2);
@@ -56,7 +54,6 @@ getdif m1(exp_a2,exp_b2,dif);
 // Pipeline 3
 //3 - Barrel shift - RIGHT
 dff_lvl_2 p3(w_MAN_a2,w_MAN_b2,exp_a2,exp_b2,sign_a2,sign_b2,rst,clk,w_MAN_a3,w_MAN_b3,exp_a3,exp_b3,sign_a3,sign_b3);
-
 // shift the mantissa of b using barrel shifter and store in w_MAN_bs
 bs_right m2(w_MAN_b3,dif,1'b1,1'b0,w_MAN_bs);
 
@@ -132,7 +129,6 @@ end
 
 //Pipeline - 6
 dff_lvl_3 p6(sign_c,r_EXP_c,r_MAN_c,rst,clk,c);
-
 endmodule
 
 //Test Module 
